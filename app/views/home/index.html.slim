@@ -11,7 +11,12 @@
     .navbar-collapse.collapse.navbar-right
         ul.nav.navbar-nav#menu
             li: a href='#view0'  Home
-            li: a href='#view1'  Map 
+            li: a href='#view1'  Map
+- if current_user
+  / 
+- else
+  .fb_logo
+    = link_to image_tag('fb.png', alt: 'Login through Facebook'), user_omniauth_authorize_path(:facebook), data: { toggle: 'popover', trigger: 'hover', content: 'Sign In!'}
 
 .container.main_cont
   .row#view0
