@@ -72,7 +72,60 @@ $(window).scroll(function(){
 });
 
 
+
+
+
+function element(){
+	document.getElementById('view1').scrollIntoView();
+    var h = window.innerHeight;
+     document.getElementById('view0').style.height = h+"px";
+     document.getElementById('view1').style.height = h+"px";
+     document.getElementById('view2').style.height = h+"px";
+     document.getElementById('content3').style.height = h+"px";
+
+
+
+}
+
+function slideAnimate() {
+    var i = document.getElementById('menu');
+    var h = window.innerHeight;
+    var x = 2*h;
+    var y = 3*h;
+    var Yoffset  = window.pageYOffset;
+   if(Yoffset < h){
+       i.style.left = "0px";
+
+   }
+    else if(Yoffset < (2*h)) {
+        i.style.left = "100px";
+
+    }
+    else if(Yoffset < (3*h)) {
+        i.style.left = "200px";
+
+    }
+    else if (Yoffset === (3*h)){
+        i.style.left = "300px";
+
+    }
+
+
+
+}
+window.addEventListener('scroll',slideAnimate);
+window.addEventListener('load', element);
+window.addEventListener('resize', element);
+
+
+
+
+
+
+
+
 // Map functions
+
 function initialize() {
     var mapOptions = {
         center: new google.maps.LatLng(28.1823294, -82.352912),
@@ -88,6 +141,6 @@ function initialize() {
         overviewMapControl: true,
         rotateControl: true,
     };
-    var map = new google.maps.Map($("#map-canvas"), mapOptions);
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 }
 google.maps.event.addDomListener(window, 'load', initialize);

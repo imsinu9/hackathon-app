@@ -20,6 +20,12 @@ gem 'geocoder'
 gem 'rabl'
 gem 'oj'
 
+# Time Of Day
+gem 'tod'
+
+# Tagging of object
+gem 'acts-as-taggable-on', '~> 3.4'
+
 group :assets do
   gem 'bootstrap-sass', '~> 3.1.0'
   gem 'sass-rails',   '~> 3.2.3'

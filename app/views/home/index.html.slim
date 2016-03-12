@@ -9,15 +9,20 @@
           span.icon-bar
         a.navbar-brand href='#'  Night Owl
     .navbar-collapse.collapse.navbar-right
-        ul.nav.navbar-nav
+        ul.nav.navbar-nav#menu
             li: a href='#view0'  Home
             li: a href='#view1'  Map 
-            li: a href='#'  Contact           
-                            
+
 .container.main_cont
   .row#view0
     .col-xs-12
-      .logo             
+      .logo
+    .col-xs-12
+      .giff#loading
+          p
+            span.gif_img = image_tag 'fetch.gif', alt: "..", style: 'width:5%'
+          p 
+            span.fetch_write Fetching your location                   
         
   .row#view1
     .col-xs-12
@@ -30,5 +35,16 @@
       //embeded maps here
         
                 
-div style='height:2000px'                        
+div style='height:2000px' 
+
+javascript:
+  $(window).load(function() {
+    $('#loading').fadeOut(2000);
+   
+    $('html,body').animate({
+      scrollTop:$('#view1').offset().top
+    },
+    'slow'
+    );
+  });                       
             

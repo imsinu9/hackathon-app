@@ -9,6 +9,6 @@ AuroFe::Application.routes.draw do
   	get 'update_last_location'
   end
 
-  resources :outlets, only: [:index]
+  resources :outlets, only: [:index, :show]
 
  end

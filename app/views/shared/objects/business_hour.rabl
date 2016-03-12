@@ -1,0 +1,1 @@
+attributes :opens_at, :closed_at, :day_of_week

@@ -1,2 +1,2 @@
 collection @outlets
-extends 'shared/object/outlet'
+extends 'shared/objects/outlet'

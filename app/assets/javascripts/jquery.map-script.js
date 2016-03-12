@@ -32,7 +32,11 @@ function get_outlets(latitude,longitude){
 			},
 
 			success: function(response) {
-				console.log(response);
+				if(response == null){
+					// 
+				} else {
+					plot_outlets(response);
+				}
 			}
 		});
 		
@@ -47,7 +51,7 @@ function showMap(lat, lon)
 
 	// Create the Map Options
   var mapOptions = {
-    zoom: 8,
+    zoom: 18,
     center: myLatLng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -61,4 +65,40 @@ function showMap(lat, lon)
       map: map,
       title: 'Found you!'
   });
+}
+
+function plot_outlets(response){
+	console.log(response);
+	// var mapOptions = {
+	// 	center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+	// 	zoom: 10,
+	// 	mapTypeId: google.maps.MapTypeId.ROADMAP
+	// };
+
+	// var map = new google.maps.Map($('#map-canvas'), mapOptions);
+	
+	// var infoWindow = new google.maps.InfoWindow();
+	// var lat_lng = new Array();
+	// var latlngbounds = new google.maps.LatLngBounds();
+	
+	// for (i=0; i<markers.length; i++) 
+	// {
+	// 	var data = markers[i]
+	// 	var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+	// 	lat_lng.push(myLatlng);
+	// 	var marker = new google.maps.Marker({
+	// 		position: myLatlng,
+	// 		map: map,
+	// 		title: data.title
+	// 	});
+	// 	latlngbounds.extend(marker.position);
+	// 	(function (marker, data) {
+	// 			google.maps.event.addListener(marker, "click", function (e) {
+	// 			infoWindow.setContent(data.description);
+	// 			infoWindow.open(map, marker);
+	// 		});
+	// 	})(marker, data);
+	// }
+	// map.setCenter(latlngbounds.getCenter());
+	// map.fitBounds(latlngbounds);
 }

@@ -1,1 +1,0 @@
-attributes :id, :title, :latitude, :longitude, :approved

@@ -1,12 +1,15 @@
 class Outlet < ActiveRecord::Base
 	include ActionTraits::OutletSearchMethods
 
-	attr_accessible :title, :active, :approved, :latitude, :longitude, :logo
+	acts_as_taggable
+
+	attr_accessible :title, :active, :approved, :latitude, :longitude, :logo, :tag_list
 	geocoded_by :geocoded_name
 
 	belongs_to :category
 	belongs_to :user
 	belongs_to :vendor
+	has_many :business_hours
 
 	has_attached_file :logo,
 	  :default_url => 'assets/default_logo.jpg',
