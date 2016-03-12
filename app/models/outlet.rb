@@ -1,4 +1,5 @@
 class Outlet < ActiveRecord::Base
+	include ActionTraits::OutletSearchMethods
 
 	attr_accessible :title, :active, :approved, :latitude, :longitude, :logo
 	geocoded_by :geocoded_name
@@ -16,10 +17,16 @@ class Outlet < ActiveRecord::Base
 	    styles
 	}
 
-	scope :active, where( active: true)
-	scope :active, where( approved: true)
+	scope :live, where( active: true)
+	scope :approved, where( approved: true)
 
 	def geocoded_name
 		title
+	end
+
+	class << self
+		def get_outlets_based_on_location(latitude, longitude)
+			Outlet.get_nearby_outlets(latitude, longitude)
+		end
 	end
 end

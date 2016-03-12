@@ -5,8 +5,10 @@ AuroFe::Application.routes.draw do
   
   root to: 'home#index'
 
-  resource :users do
+  resources :users do
   	get 'update_last_location'
   end
+
+  resources :outlets, only: [:index]
 
  end

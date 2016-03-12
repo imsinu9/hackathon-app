@@ -13,7 +13,7 @@ window.onload = function()
 			showMap(lat, lon);
 			console.log("Latitude: "+lat)
 			console.log("Longitude: "+lon)
-			var response = send_loc(lat,lon);
+			var response = get_outlets(lat,lon);
 			console.log(response);
 		});
 	} else {
@@ -22,13 +22,21 @@ window.onload = function()
 	}
 }
 
-function send_loc(lat,lon)
-{
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "http://192.168.2.207:8888/server/index.php", true);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send("lon="+lon+"&lat="+lat);
-  return xhttp.responseText;
+function get_outlets(latitude,longitude){
+	$.ajax({
+			url: '/outlets',
+			type: "GET",
+			data: {
+				latitude: latitude,
+				longitude: longitude
+			},
+
+			success: function(response) {
+				console.log(response);
+			}
+		});
+		
+		return true;
 }
 
 // Show the user's position on a Google map.

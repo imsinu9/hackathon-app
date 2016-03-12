@@ -16,8 +16,9 @@ gem "paperclip", "~> 3.0"
 # GeoCoder
 gem 'geocoder'
 
-gem 'jquery-rails'
-
+# Json Templating Engine
+gem 'rabl'
+gem 'oj'
 
 group :assets do
   gem 'bootstrap-sass', '~> 3.1.0'
