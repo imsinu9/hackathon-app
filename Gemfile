@@ -8,18 +8,27 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-oauth2'
 gem 'slim-rails'
+gem 'open_uri_redirections'
+
+# Photo Upload
+gem "paperclip", "~> 3.0"
+
+# GeoCoder
+gem 'geocoder'
 
 gem 'jquery-rails'
 
+
 group :assets do
+  gem 'bootstrap-sass', '~> 3.1.0'
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
 
 
 group :development do
   gem "bullet"
+  gem "annotate"
   gem 'super_awesome_print'
   gem "letter_opener"
   gem "rails-erd"

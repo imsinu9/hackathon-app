@@ -1,0 +1,58 @@
+/ doctype html
+/ html(lang="en")
+/   head
+/     title Hack
+/     meta(charset="utf-8")
+/     meta(name="viewport", content="width=device-width, initial-scale=0")
+    / link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+    / link(rel="stylesheet" href="style.css")
+    / script(src="jquery-2.1.3.min.js")
+    / script(src="functions.js")
+    / script(src="MapScript.js")
+    / script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpsZqx5A-1RPabiNU-9_RkALZ21uCrvm8")
+    
+    //include mixin
+    
+  body
+  
+    .navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+        .container
+            .navbar-header
+                button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-collapse")
+                    span.sr-only 
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href="#")  Night Owl
+            .navbar-collapse.collapse.navbar-right
+                ul.nav.navbar-nav
+                    li: a(href="#view0")  Home
+                    li: a(href="#view1")  Map 
+                    li: a(href="#")  Contact
+                    
+                
+                    
+                    
+                                
+    .container.main_cont
+        .row(id="view0")
+            .col-xs-12
+                .logo
+                    
+            
+        .row(id="view1")
+            .col-xs-12
+                .map(id="map-canvas")
+            
+        .row(id="view2")
+            .col-xs-12
+                //here goes map inputs
+            .col-xs-12
+                //embeded maps here
+            
+                    
+    div(style="height:2000px")                        
+                
+    
+    
+    

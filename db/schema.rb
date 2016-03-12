@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160312123924) do
+ActiveRecord::Schema.define(:version => 20160312172307) do
+
+  create_table "categories", :force => true do |t|
+    t.string  "name",                     :null => false
+    t.boolean "active", :default => true, :null => false
+  end
 
   create_table "oauths", :force => true do |t|
     t.integer  "user_id"
@@ -24,6 +29,23 @@ ActiveRecord::Schema.define(:version => 20160312123924) do
   end
 
   add_index "oauths", ["provider", "uid"], :name => "index_oauths_on_provider_and_uid"
+
+  create_table "outlets", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "vendor_id"
+    t.integer  "user_id"
+    t.string   "title",             :default => "No Title"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "active",            :default => false
+    t.boolean  "approved",          :default => false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",     :null => false
@@ -38,6 +60,12 @@ ActiveRecord::Schema.define(:version => 20160312123924) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.float    "last_location_latitude"
+    t.float    "last_location_logitude"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
