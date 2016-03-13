@@ -20,7 +20,7 @@ function initMap() {
         position: pos,
         icon: 'http://labs.google.com/ridefinder/images/mm_20_yellow.png',
         map: map,
-        title: 'Hello World!',
+        title: 'Current Location',
         draggable:true
       });
 
@@ -47,24 +47,18 @@ function initMap() {
 							// 
 						} else {
 			      var length = response.length;
-			      console.log(length);
 			      for (var i = 0 ; i < length; i++) 
 			      {
 			        var lat = parseFloat(response[i].latitude);
 			        var lng = parseFloat(response[i].longitude);
-			        //var tempp = lat+'hdhd'+lng;
-			        //alert(tempp);
-
 			        var loc = {lat: lat, lng: lng};
+			        var title = response[i].title;
 
-			        //marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-			                
 			        var marker = new google.maps.Marker({
 				        position: loc,
 				        icon: 'http://labs.google.com/ridefinder/images/mm_20_blue.png',
-				        //icon: 'https://cdn3.iconfinder.com/data/icons/map-markers-1/512/monument-48.png',
 				        map: map,
-				        title: 'Hello World!'
+				        title: title
 			      	});
 						}
 					}
