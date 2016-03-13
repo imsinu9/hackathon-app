@@ -1,104 +1,87 @@
+function initMap() {
+  var myLatLng = {lat: 12.864037299999999, lng: 77.59926270000002};
 
-
-window.onload = function()
-{
-	// Check to see if the browser supports the GeoLocation API.
-	if (navigator.geolocation) {
-		// Get the location
-		navigator.geolocation.getCurrentPosition(function(position) {
-			var lat = position.coords.latitude;
-			var lon = position.coords.longitude;
-
-			// Show the map
-			showMap(lat, lon);
-			console.log("Latitude: "+lat)
-			console.log("Longitude: "+lon)
-			var response = get_outlets(lat,lon);
-			console.log(response);
-		});
-	} else {
-		// Print out a message to the user.
-		document.write('Your browser does not support GeoLocation :(');
-	}
-}
-
-function get_outlets(latitude,longitude){
-	$.ajax({
-			url: '/outlets',
-			type: "GET",
-			data: {
-				latitude: latitude,
-				longitude: longitude
-			},
-
-			success: function(response) {
-				if(response == null){
-					// 
-				} else {
-					plot_outlets(response);
-				}
-			}
-		});
-		
-		return true;
-}
-
-// Show the user's position on a Google map.
-function showMap(lat, lon)
-{
-	// Create a LatLng object with the GPS coordinates.
-	var myLatLng = new google.maps.LatLng(lat, lon);
-
-	// Create the Map Options
-  var mapOptions = {
-    zoom: 18,
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
     center: myLatLng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-
-  // Generate the Map
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-  // Add a Marker to the Map
-  var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Found you!'
+    zoom: 12
   });
+
+  var infoWindow = new google.maps.InfoWindow({map: map});
+
+  // Try HTML5 geolocation.
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      var marker = new google.maps.Marker({
+        position: pos,
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_yellow.png',
+        map: map,
+        title: 'Hello World!',
+        draggable:true
+      });
+
+	    google.maps.event.addListener(marker, 'click', function (event) {
+	    document.getElementById("latbox").innerHTML=event.latLng.lat();
+	    document.getElementById("lngbox").innerHTML=event.latLng.lng();
+	    });
+
+	    google.maps.event.addListener(marker, 'dragend', function (event) {
+	    document.getElementById("latbox").innerHTML = event.latLng.lat();
+	    document.getElementById("lngbox").innerHTML = event.latLng.lng();
+	    });   
+
+			$.ajax({
+					url: '/outlets',
+					type: "GET",
+					data: {
+						latitude: pos.lat,
+						longitude: pos.lng
+					},
+
+					success: function(response) {
+						if(response == null){
+							// 
+						} else {
+			      var length = response.length;
+			      console.log(length);
+			      for (var i = 0 ; i < length; i++) 
+			      {
+			        var lat = parseFloat(response[i].latitude);
+			        var lng = parseFloat(response[i].longitude);
+			        //var tempp = lat+'hdhd'+lng;
+			        //alert(tempp);
+
+			        var loc = {lat: lat, lng: lng};
+
+			        //marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+			                
+			        var marker = new google.maps.Marker({
+				        position: loc,
+				        icon: 'http://labs.google.com/ridefinder/images/mm_20_blue.png',
+				        //icon: 'https://cdn3.iconfinder.com/data/icons/map-markers-1/512/monument-48.png',
+				        map: map,
+				        title: 'Hello World!'
+			      	});
+						}
+					}
+				}
+			});
+  }), function(){
+      handleLocationError(true, infoWindow, map.getCenter());
+    }
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
 }
 
-function plot_outlets(response){
-	console.log(response);
-	// var mapOptions = {
-	// 	center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-	// 	zoom: 10,
-	// 	mapTypeId: google.maps.MapTypeId.ROADMAP
-	// };
-
-	// var map = new google.maps.Map($('#map-canvas'), mapOptions);
-	
-	// var infoWindow = new google.maps.InfoWindow();
-	// var lat_lng = new Array();
-	// var latlngbounds = new google.maps.LatLngBounds();
-	
-	// for (i=0; i<markers.length; i++) 
-	// {
-	// 	var data = markers[i]
-	// 	var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-	// 	lat_lng.push(myLatlng);
-	// 	var marker = new google.maps.Marker({
-	// 		position: myLatlng,
-	// 		map: map,
-	// 		title: data.title
-	// 	});
-	// 	latlngbounds.extend(marker.position);
-	// 	(function (marker, data) {
-	// 			google.maps.event.addListener(marker, "click", function (e) {
-	// 			infoWindow.setContent(data.description);
-	// 			infoWindow.open(map, marker);
-	// 		});
-	// 	})(marker, data);
-	// }
-	// map.setCenter(latlngbounds.getCenter());
-	// map.fitBounds(latlngbounds);
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
 }

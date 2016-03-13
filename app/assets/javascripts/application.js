@@ -2,6 +2,6 @@
 //= require jquery.map-script.js
 //= require jquery.transition.js
 
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover();
-});
+// $(document).ready(function(){
+//   $('[data-toggle="popover"]').popover();
+// });
